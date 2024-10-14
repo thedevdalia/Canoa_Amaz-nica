@@ -1,2 +1,2 @@
-# Canoa_Amaz-nica
+# Canoa_Amazonica
 Chatbot de restaurante
