@@ -1,0 +1,31 @@
+ID Distrito,Nombre del Distrito,Código Postal,Zona Horaria,Comentarios
+1,Centro,12345,UTC-3,Alta demanda
+2,Norte,23456,UTC-3,Pocas entregas
+3,Sur,34567,UTC-3,Buen acceso
+4,Este,45678,UTC-3,Nueva zona
+5,Oeste,56789,UTC-3,Dificultad en entregas
+6,Parque Industrial,67890,UTC-3,Zona de oficinas
+7,Zona Rosa,78901,UTC-3,Alto flujo turístico
+8,Colinas,89012,UTC-3,"Buen acceso, residencial"
+9,Costa,90123,UTC-3,Alta demanda en verano
+10,Pueblo Viejo,1234,UTC-3,Pocas entregas
+11,El Bosque,12346,UTC-3,Dificultades de acceso
+12,Villa Alegre,23457,UTC-3,Alta densidad poblacional
+13,Santa María,34568,UTC-3,Nueva zona en crecimiento
+14,Río Azul,45679,UTC-3,Zona en expansión
+15,Valle Verde,56780,UTC-3,Alta demanda
+16,La Estrella,67891,UTC-3,Residencial con buen acceso
+17,Jardines de la Ciudad,78902,UTC-3,Zona con alta afluencia
+18,Sector Financiero,89023,UTC-3,Alta demanda en horario laboral
+19,Barrio Antiguo,90134,UTC-3,"Turístico, poco tráfico"
+20,Nuevo Horizonte,1245,UTC-3,Zona en desarrollo
+21,Las Flores,12347,UTC-3,"Alta demanda, buena ubicación"
+22,Cumbres,23458,UTC-3,"Buen acceso, residencial"
+23,Valle del Sol,34569,UTC-3,Zona con varios restaurantes
+24,Lomas de Chapultepec,45680,UTC-3,"Zona exclusiva, alta demanda"
+25,Puerta del Mar,56781,UTC-3,"Buen acceso, cerca de la playa"
+26,El Mirador,67892,UTC-3,Alta densidad poblacional
+27,San José,78903,UTC-3,"Pocas entregas, buenas calles"
+28,Tierra Nueva,89024,UTC-3,Creciendo rápidamente
+29,Plaza Mayor,90135,UTC-3,Zona comercial activa
+30,Bosque de los Sueños,1246,UTC-3,"Zona tranquila, residencial"

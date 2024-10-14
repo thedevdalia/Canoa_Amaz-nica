@@ -1,0 +1,31 @@
+ID Producto,Nombre del Producto,Precio,Distrito Disponible,Stock
+1,Pizza Margherita,10.00,Miraflores,50
+2,Ensalada Caesar,8.00,San Isidro,30
+3,Hamburguesa Clásica,12.00,Barranco,20
+4,Pasta Carbonara,11.00,La Molina,15
+5,Refresco,2.00,Surco,100
+6,Lasaña,12.50,San Borja,25
+7,Pollo a la Parrilla,13.00,Pueblo Libre,30
+8,Tacos al Pastor,9.00,Jesús María,40
+9,Sushi Variado,15.00,Lince,10
+10,Batido de Frutas,5.00,Chorrillos,60
+11,Pizza Pepperoni,11.00,Callao,45
+12,Ensalada de Quinoa,9.50,San Juan de Lurigancho,20
+13,Nachos con Guacamole,7.00,Villa El Salvador,50
+14,Spaghetti Boloñesa,10.00,Rímac,15
+15,Filete de Res,15.00,La Victoria,25
+16,Sopa de Mariscos,14.00,Magdalena del Mar,5
+17,Crepas Dulces,6.00,San Miguel,30
+18,Galletas Variadas,3.00,El Agustino,80
+19,Mousse de Chocolate,4.50,Ate,40
+20,Ensalada Mediterránea,10.00,Carmen de la Legua,15
+21,Brochetas de Pollo,12.00,San Luis,20
+22,Pizza Veggie,10.50,Santa Anita,35
+23,Smoothie Verde,5.50,La Perla,50
+24,Tortilla Española,9.00,San Martín de Porres,15
+25,Alitas de Pollo,10.00,Independencia,40
+26,Pescado a la Plancha,14.00,Lurín,20
+27,Fajitas de Res,13.00,Ventanilla,25
+28,Pan de Ajo,4.00,San Juan de Miraflores,50
+29,Pizza BBQ,11.50,Callao,15
+30,Tarta de Frutas,6.50,Villa María del Triunfo,20

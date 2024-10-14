@@ -1,0 +1,31 @@
+ID Distrito,Nombre del Distrito,Código Postal,Zona Horaria,Comentarios
+1,Miraflores,18xxx,UTC-5,"Zona turística, alta demanda"
+2,San Isidro,27xxx,UTC-5,Zona empresarial
+3,Barranco,04xxx,UTC-5,"Zona bohemia, buen acceso"
+4,La Molina,12xxx,UTC-5,"Residencial, buena seguridad"
+5,Surco,33xxx,UTC-5,"Zona mixta, alta densidad"
+6,San Borja,41xxx,UTC-5,Zona residencial y comercial
+7,Pueblo Libre,21xxx,UTC-5,"Residencial, tranquila"
+8,Jesús María,14xxx,UTC-5,"Zona comercial, alta demanda"
+9,Lince,13xxx,UTC-5,"Residencial, buenas conexiones"
+10,Chorrillos,09xxx,UTC-5,"Zona costera, turístico"
+11,Callao,70xxx,UTC-5,"Puerto principal, variedad"
+12,San Juan de Lurigancho,15xxx,UTC-5,Alta densidad poblacional
+13,Villa El Salvador,32xxx,UTC-5,"Zona popular, en crecimiento"
+14,Rímac,08xxx,UTC-5,"Zona histórica, en desarrollo"
+15,La Victoria,03xxx,UTC-5,Zona comercial y residencial
+16,Magdalena del Mar,17xxx,UTC-5,"Buena ubicación, tranquila"
+17,San Miguel,30xxx,UTC-5,"Zona residencial, muy poblada"
+18,El Agustino,05xxx,UTC-5,"Alta densidad, variada"
+19,Ate,06xxx,UTC-5,"En crecimiento, residencial"
+20,Carmen de la Legua,31xxx,UTC-5,Zona de acceso variado
+21,San Luis,40xxx,UTC-5,Zona residencial tranquila
+22,Santa Anita,11xxx,UTC-5,Alta densidad poblacional
+23,La Perla,19xxx,UTC-5,"Zona costera, tranquila"
+24,San Martín de Porres,20xxx,UTC-5,"Comercial, alta densidad"
+25,Independencia,25xxx,UTC-5,"Zona variada, residencial"
+26,Lurín,22xxx,UTC-5,"En desarrollo, residencial"
+27,Ventanilla,23xxx,UTC-5,"Zona popular, en crecimiento"
+28,San Juan de Miraflores,26xxx,UTC-5,"Zona tranquila, residencial"
+29,Callao,70xxx,UTC-5,Zona de acceso al mar
+30,Villa María del Triunfo,28xxx,UTC-5,"En crecimiento, popular"
