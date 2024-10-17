@@ -22,6 +22,10 @@ init_session_state()
 st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
 st.title("La Canoa Amazónica! 🛶")
 
+# Mostrar la imagen
+image_url = "https://raw.githubusercontent.com/thedevdalia/Canoa_Amaz-nica/main/Canoa_Amazonica_BOT/image.jpg"
+st.image(image_url, caption="Bienvenido a La Canoa Amazónica", use_column_width=True)
+
 # Mostrar mensaje de bienvenida
 intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
 Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
