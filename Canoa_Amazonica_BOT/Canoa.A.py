@@ -225,7 +225,7 @@ elif choice == "Pedidos":
 
 elif choice == "Reclamos":
     # Manejo de reclamos
-    st.title("Deja tu Reclamo")
+    st.markdown("<h1 style='color: white;'>Deja tu Reclamo</h1>", unsafe_allow_html=True)
     complaint = st.text_area("Escribe tu reclamo aquí...")
     
     if st.button("Enviar Reclamo"):
