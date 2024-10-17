@@ -3,14 +3,16 @@ import streamlit as st
 from datetime import datetime
 from fuzzywuzzy import fuzz, process
 import re
+import base64
 
-# Añadir un archivo CSS externo
-st.markdown(
-    '''
-    <link rel="stylesheet" href="https://combo.staticflickr.com/ap/build/stylesheets/rollup-71d73fd7.css">
-    ''', 
-    unsafe_allow_html=True
-)
+@st.experimental_memo
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+img = get_img_as_base64("image.jpg")
 
 # Inicializar las claves de session_state si no existen
 def init_session_state():
@@ -150,4 +152,27 @@ if not st.session_state["order_placed"]:
             response += format_menu(menu)
         else:
             available_orders, unavailable_orders = verify_order_with_menu(order_dict, menu)
-            if unavailable_orders
+            if unavailable_orders:
+                response = f"Lo siento, los siguientes platos no están disponibles: {', '.join(unavailable_orders)}."
+            else:
+                st.session_state["order_placed"] = True
+                st.session_state["current_order"] = available_orders
+                response = f"Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores)."
+else:
+    if user_input:
+        district = verify_district(user_input, districts)
+        if not district:
+            response = f"Lo siento, pero no entregamos en ese distrito. Distritos disponibles: {', '.join(districts['Distrito'].tolist())}."
+        else:
+            st.session_state["district_selected"] = True
+            st.session_state["current_district"] = district
+            save_order_to_csv(st.session_state["current_order"], district)
+            response = f"Gracias por tu pedido desde **{district}**. ¡Tu pedido ha sido registrado con éxito! 🍽️"
+
+# Mostrar la respuesta del asistente
+if user_input:
+    with st.chat_message("assistant", avatar="🍃"):
+        st.markdown(response)
+
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append({"role": "assistant", "content": response})
