@@ -10,8 +10,7 @@ def init_session_state():
         "order_placed": False,
         "district_selected": False,
         "current_district": None,
-        "messages": [],
-        "page": "La Canoa Amazónica"
+        "messages": []
     }
     for key, default in session_defaults.items():
         if key not in st.session_state:
@@ -51,18 +50,15 @@ st.markdown(
 # Agregar el div del superpuesto en la parte superior
 st.markdown("<div class='overlay'></div>", unsafe_allow_html=True)
 
-# URL de la imagen del coco
-url_coco = "https://github.com/thedevdalia/Canoa_Amaz-nica/raw/main/Canoa_Amazonica_BOT/coco.png"
+# URLs de las imágenes
+url_chica_comida = "https://github.com/thedevdalia/Canoa_Amaz-nica/raw/main/Canoa_Amazonica_BOT/La%20Canoaa.jpg"
 
-# Agregar imagen de coco que redirige a la sección de pedidos
-if st.button("Toca aquí para empezar con tu pedido"):
-    st.session_state["page"] = "Pedidos"
-
-st.image(url_coco, caption="¡Tócame para empezar con tu pedido!", use_column_width=True)
+# Mostrar imágenes en la barra lateral
+st.sidebar.image(url_chica_comida, caption="Deliciosos Manjares de la Selva", use_column_width=True)
 
 # Menú lateral
 menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
-choice = st.sidebar.selectbox("Menú", menu, index=menu.index(st.session_state["page"]))
+choice = st.sidebar.selectbox("Menú", menu)
 
 if choice == "La Canoa Amazónica":
     # Mensaje de bienvenida en HTML con estilo
