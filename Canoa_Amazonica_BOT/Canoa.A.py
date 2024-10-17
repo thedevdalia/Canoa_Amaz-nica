@@ -198,7 +198,8 @@ elif choice == "Pedidos":
     # Mostrar la respuesta del asistente
     if user_input:
         with st.chat_message("assistant", avatar="🍃"):
-            st.markdown(response)
+            response_html = f"<p style='color: white;'>{response}</p>"
+            st.markdown(response_html, unsafe_allow_html=True)
 
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.session_state.messages.append({"role": "assistant", "content": response})
@@ -212,6 +213,8 @@ elif choice == "Reclamos":
         if complaint:
             response = "Tu reclamo está en proceso. Te devolveremos tu dinero en una hora al verificar la información. Si tu pedido no llegó a tiempo o fue diferente a lo que pediste, también te ofreceremos cupones por la mala experiencia de tu pedido."
             st.success(response)
+            response_html = f"<p style='color: white;'>{response}</p>"
+            st.markdown(response_html, unsafe_allow_html=True)
         else:
             st.error("Por favor, escribe tu reclamo antes de enviarlo.")
 
