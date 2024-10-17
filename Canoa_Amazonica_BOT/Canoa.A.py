@@ -26,7 +26,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://raw.githubusercontent.com/thedevdalia/Canoa_Amaz-nica/main/Canoa_Amazonica_BOT/image.jpg');
+        background-image: url('https://ruta-de-tu-imagen-en-un-servidor-o-la-web'); /* Cambia la URL a la imagen que desees */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -54,6 +54,10 @@ st.markdown("<div class='overlay'></div>", unsafe_allow_html=True)
 menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
 choice = st.sidebar.selectbox("Menú", menu)
 
+# Cargar la imagen en el menú lateral
+st.sidebar.image("/mnt/data/image.png", use_column_width=True)
+
+# Opción del menú
 if choice == "La Canoa Amazónica":
     # Mensaje de bienvenida
     welcome_message = """¡Bienvenidos a La Canoa Amazónica! 🌿🍃  
@@ -196,7 +200,7 @@ elif choice == "Pedidos":
                 else:
                     st.session_state["order_placed"] = True
                     st.session_state["current_order"] = available_orders
-                    response = f"<p style='color: white;'>Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores).</p>"
+                    response = f"Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores)."
     else:
         if user_input:
             district = verify_district(user_input, districts)
@@ -206,31 +210,65 @@ elif choice == "Pedidos":
                 st.session_state["district_selected"] = True
                 st.session_state["current_district"] = district
                 save_order_to_csv(st.session_state["current_order"], district)
-                response = f"Gracias por tu pedido desde **{district}**. ¡Tu pedido ha sido registrado con éxito! 🍽️"
+                response = f"Gracias por tu pedido desde **{district}**. 🍽️ ¡Tu comida está en camino! 🚴‍♂️"
+                st.session_state["messages"].append({
+                    "role": "assistant",
+                    "content": response
+                })
+                st.session_state["order_placed"] = False  # Reiniciar el flujo de pedidos para un nuevo pedido.
 
-    # Mostrar la respuesta del asistente
+    # Almacenar el mensaje del usuario en el historial de la conversación
     if user_input:
+        st.session_state.messages.append({
+            "role": "user",
+            "content": user_input
+        })
+        # Almacenar la respuesta del asistente en el historial de la conversación
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": response
+        })
+        # Mostrar el mensaje del asistente
         with st.chat_message("assistant", avatar="🍃"):
-            response_html = f"<p style='color: white;'>{response}</p>"
-            st.markdown(response_html, unsafe_allow_html=True)
-
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        st.session_state.messages.append({"role": "assistant", "content": response})
+            st.markdown(response)
 
 elif choice == "Reclamos":
-    # Manejo de reclamos
-    st.title("Deja tu Reclamo")
-    complaint = st.text_area("Escribe tu reclamo aquí...")
-    
-    if st.button("Enviar Reclamo"):
-        if complaint:
-            response = "Tu reclamo está en proceso. Te devolveremos tu dinero en una hora al verificar la información. Si tu pedido no llegó a tiempo o fue diferente a lo que pediste, también te ofreceremos cupones por la mala experiencia de tu pedido."
-            st.success(response)
-            response_html = f"<p style='color: white;'>{response}</p>"
-            st.markdown(response_html, unsafe_allow_html=True)
-        else:
-            st.error("Por favor, escribe tu reclamo antes de enviarlo.")
+    # Función para almacenar reclamos
+    def save_claim_to_csv(claim_dict, filename="claims.csv"):
+        try:
+            claims_list = [
+                {'Fecha y Hora': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                 'Cliente': claim_dict['Cliente'], 'Pedido': claim_dict['Pedido'], 'Reclamo': claim_dict['Reclamo']}
+            ]
+            df_claims = pd.DataFrame(claims_list)
+            df_claims.to_csv(filename, mode='a', header=False, index=False)
+        except Exception as e:
+            st.error(f"Error al guardar el reclamo: {e}")
 
-# Agregar mensaje de despedida en la parte inferior
-st.markdown("---")
-st.markdown("¡Gracias por visitar La Canoa Amazónica! 🌿🍽️")
+    # Ingreso de datos para reclamos
+    st.header("Área de Reclamos")
+
+    with st.form("reclamo_form"):
+        cliente = st.text_input("Nombre del cliente", max_chars=100)
+        pedido = st.text_input("Especifica tu pedido", max_chars=200)
+        reclamo = st.text_area("Escribe tu reclamo", max_chars=500)
+        submitted = st.form_submit_button("Enviar Reclamo")
+
+        if submitted:
+            if cliente and pedido and reclamo:
+                claim_dict = {'Cliente': cliente, 'Pedido': pedido, 'Reclamo': reclamo}
+                save_claim_to_csv(claim_dict)
+                st.success(f"Gracias {cliente}, tu reclamo ha sido recibido.")
+            else:
+                st.error("Por favor, completa todos los campos del formulario.")
+
+    # Mostrar reclamos anteriores (opcional)
+    if st.checkbox("Mostrar reclamos anteriores"):
+        try:
+            df_claims = pd.read_csv("claims.csv")
+            st.write(df_claims)
+        except FileNotFoundError:
+            st.error("No hay reclamos anteriores registrados.")
+
+# Mensaje final
+st.sidebar.markdown("Gracias por ser parte de La Canoa Amazónica 🍃🌿. ¡Disfruta la selva en tu paladar!")
