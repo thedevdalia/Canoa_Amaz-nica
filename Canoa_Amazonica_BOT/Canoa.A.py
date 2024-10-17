@@ -48,7 +48,7 @@ st.markdown(
         left: 50%;
         transform: translateX(-50%);
         width: 200px;
-        animation: fall 3s ease-out forwards;
+        animation: fall 10s ease-out forwards;
         z-index: 100;
         cursor: pointer;
     }
