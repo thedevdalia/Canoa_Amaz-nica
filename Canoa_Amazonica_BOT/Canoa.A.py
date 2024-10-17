@@ -54,9 +54,6 @@ st.markdown("<div class='overlay'></div>", unsafe_allow_html=True)
 url_chica_comida = "https://github.com/thedevdalia/Canoa_Amaz-nica/raw/main/Canoa_Amazonica_BOT/La%20Canoa.jpg"
 url_restaurante = "https://github.com/thedevdalia/Canoa_Amaz-nica/raw/main/Canoa_Amazonica_BOT/image.jpg"
 
-# Mostrar imágenes en la barra lateral
-st.sidebar.image(url_chica_comida, caption="Chica de Comida", use_column_width=True)
-st.sidebar.image(url_restaurante, caption="Restaurante", use_column_width=True)
 
 # Menú lateral
 menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
