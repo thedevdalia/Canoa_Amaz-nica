@@ -77,29 +77,23 @@ elif choice == "Ofertas":
     st.markdown(offers_message)
 
 elif choice == "Pedidos":
-    # Mostrar mensaje de bienvenida
-        intro = 
-        intro 
-    """<h2 style='color: white;'>¡Bienvenido a La Canoa Amazónica! 🌿🍃</h2>  
-        Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
-        ¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
-        st.markdown(intro, unsafe_allow_html=
-        st.markdown(intro, unsafe_allow_ht
-
-        st.markdown(intro, unsafe_
-
-        st.markd
-
+    
+   
+# Mostrar mensaje de bienvenida
+    intro = 
   
-    True)
+"""
+    <h2 style='color: white;'>¡Bienvenido a La Canoa Amazónica! 🌿🍃</h2>  
+    <p style='color: white;'>Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.</p>  
+    <p style='color: white;'>¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!</p>
+    """
+    st.markdown(intro, unsafe_allow_html=
+    st.markdown(intro, unsafe_allow_htm
 
-    # Función para cargar el menú desde un archivo CSV
-    def load_menu(csv_file):
-        try:
-            return pd.read_csv(csv_file, delimiter=';')
-        except FileNotFoundError:
-            st.error("Archivo de menú no encontrado.")
-            return pd.DataFrame(columns=["Plato", "Descripción", "Precio"])
+    st.markdown(intro, unsa
+
+    st.m
+True)
 
     # Función para cargar los distritos de reparto desde otro CSV
     def load_districts(csv_file):
