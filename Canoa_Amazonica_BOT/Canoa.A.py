@@ -183,7 +183,8 @@ img = get_img_as_base64("image.jpg")  # Cambia "image.jpg" por tu imagen
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://images.unsplash.com/photo-1501426026826-31c667bdf23d");
+background-image: url("https://images.unsplash.com/photo-1501426026826-31c667bdf23d
+");
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
