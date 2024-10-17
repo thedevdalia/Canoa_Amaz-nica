@@ -78,10 +78,20 @@ elif choice == "Ofertas":
 
 elif choice == "Pedidos":
     # Mostrar mensaje de bienvenida
-    intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
-    Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
-    ¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
-    st.markdown(intro)
+        intro = 
+        intro 
+    """<h2 style='color: white;'>¡Bienvenido a La Canoa Amazónica! 🌿🍃</h2>  
+        Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
+        ¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
+        st.markdown(intro, unsafe_allow_html=
+        st.markdown(intro, unsafe_allow_ht
+
+        st.markdown(intro, unsafe_
+
+        st.markd
+
+  
+    True)
 
     # Función para cargar el menú desde un archivo CSV
     def load_menu(csv_file):
