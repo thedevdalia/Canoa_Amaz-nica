@@ -233,7 +233,7 @@ elif choice == "Pedidos":
 elif choice == "Reclamos":
     # Manejo de reclamos
     st.markdown("""
-        <h3 style='color: white; font-weight: normal;'>Deja tu Reclamo</h3>
+        <h3 style='color: white; font-weight: normal;'>Deja tu Reclamo</h4>
     """, unsafe_allow_html=True)
 
     complaint = st.text_area("Escribe tu reclamo aquí...")
