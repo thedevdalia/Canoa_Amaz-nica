@@ -1,7 +1,8 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 from datetime import datetime
 from fuzzywuzzy import fuzz, process
+import time
 import re
 
 # Inicializar las claves de session_state si no existen
@@ -19,9 +20,9 @@ def init_session_state():
 init_session_state()
 
 # Configuración inicial de la página
-st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
+st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:", layout="wide")
 
-# Estilo para la imagen de fondo y el superpuesto oscuro
+# Estilo para animación y fondo
 st.markdown(
     """
     <style>
@@ -32,7 +33,6 @@ st.markdown(
         background-repeat: no-repeat;
         color: white;  /* Cambiar el color del texto si es necesario */
     }
-    
     .overlay {
         position: absolute;
         top: 0;
@@ -42,13 +42,50 @@ st.markdown(
         background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
         z-index: 1; /* Asegura que el superpuesto esté por encima de la imagen de fondo */
     }
+    .falling-coconut {
+        position: absolute;
+        top: -300px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        animation: fall 3s ease-out forwards;
+        z-index: 100;
+        cursor: pointer;
+    }
+    @keyframes fall {
+        0% { top: -300px; }
+        100% { top: 50%; }
+    }
+    #main-content { display: none; }
     </style>
+    <script>
+    function showPage() {
+        document.getElementById('coconut').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    }
+    </script>
     """,
     unsafe_allow_html=True
 )
 
-# Agregar el div del superpuesto en la parte superior
-st.markdown("<div class='overlay'></div>", unsafe_allow_html=True)
+# URL del coco
+url_coconut = "https://github.com/thedevdalia/Canoa_Amaz-nica/blob/main/Canoa_Amazonica_BOT/static/coconut-isolated-transparent-background_530816-1449.jpg?raw=true"
+
+# Mostrar el coco animado
+st.markdown(f"<img src='{url_coconut}' class='falling-coconut' id='coconut' onclick='showPage()'>", unsafe_allow_html=True)
+
+# Simulación de espera antes de mostrar la página
+time.sleep(2)
+
+# Mostrar el contenido principal después del clic en el coco
+st.markdown(
+    """
+    <div id="main-content">
+        <h1 style="color: white; text-align: center;">¡Bienvenido a La Canoa Amazónica!</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # URLs de las imágenes
 url_chica_comida = "https://github.com/thedevdalia/Canoa_Amaz-nica/raw/main/Canoa_Amazonica_BOT/La%20Canoaa.jpg"
@@ -61,36 +98,19 @@ menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
 choice = st.sidebar.selectbox("Menú", menu)
 
 if choice == "La Canoa Amazónica":
-    # Mensaje de bienvenida en HTML con estilo
-    welcome_message = """
-    <h2 style='color: white;'>¡Bienvenidos a La Canoa Amazónica! 🌿🍃</h4>   
-    <p style='color: white;'>Si eres amante de la comida exótica y auténtica de nuestra querida selva, aquí te ofrecemos una experiencia gastronómica única que no querrás perderte.
-    En La Canoa Amazónica, vendemos una variedad de deliciosos platos de la selva, elaborados con ingredientes frescos y autóctonos que capturan la esencia de la Amazonía. Cada bocado es un viaje sensorial que te transporta a lo más profundo de la selva, donde los sabores vibrantes y las especias exóticas se fusionan para crear una explosión de gusto en tu paladar. Desde suculentas carnes, como el pez amazónico, hasta opciones vegetarianas llenas de nutrientes, tenemos algo para todos los gustos.
-    Nuestro compromiso va más allá de ofrecer comida deliciosa; también te invitamos a disfrutar de un ambiente acogedor y familiar en cualquiera de nuestras cuatro sedes en San Martín, San Isidro y Chorrillos. Aquí, recibirás una atención personalizada que te hará sentir como en casa, porque en La Canoa Amazónica, tú eres parte de nuestra familia.
-    Además de nuestro conveniente servicio de delivery, te garantizamos que cada visita será memorable. Te invitamos a sumergirte en la cultura y las tradiciones de la selva, donde cada plato cuenta una historia y cada sabor es un homenaje a la riqueza natural de nuestra región.</p>
-    
-    <p style='color: white;'>Recuerda: ¡tú eres parte de la selva, y la selva es parte de ti! Ven a disfrutar de la comida con el verdadero sabor de la Amazonía, y déjate envolver por la magia de nuestros platos. ¡Te esperamos con los brazos abiertos en La Canoa Amazónica! 🌿🍽️</p>  
-    """
-    
-    # Mostrar el mensaje de bienvenida
-    st.markdown(welcome_message, unsafe_allow_html=True)
+    st.markdown("""
+    <h2 style='color: white;'>¡Bienvenidos a La Canoa Amazónica! 🌿🍃</h4>
+    <p style='color: white;'>Si eres amante de la comida exótica y auténtica de nuestra querida selva, aquí te ofrecemos una experiencia gastronómica única que no querrás perderte. 
+    Desde suculentas carnes, como el pez amazónico, hasta opciones vegetarianas, tenemos algo para todos los gustos.</p>
+    """, unsafe_allow_html=True)
 
 elif choice == "Ofertas":
-    # Mensaje de ofertas
-    offers_message = """¡Promo familiar! 3 juanes a 70 soles, más una botella de 2 litros de chicha morada.  
-    ¡Tacacho con cecina 2 por 30 soles! ¡Super promo!"""
-    st.markdown(offers_message)
+    st.markdown("¡Promo familiar! 3 juanes a 70 soles, más una botella de 2 litros de chicha morada.")
 
 elif choice == "Pedidos":
-    # Mostrar mensaje de bienvenida
-    intro = """
-    <h2 style='color: white;'>¡Descubre los Sabores de la Selva en La Canoa Amazónica! 🌿🍃</h2>  
-    <p style='color: white;'>Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.</p>  
-    <p style='color: white;'>¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!</p>
-    """
-    st.markdown(intro, unsafe_allow_html=True)
+    st.markdown("<h2 style='color: white;'>¡Descubre los Sabores de la Selva en La Canoa Amazónica! 🌿🍃</h2>", unsafe_allow_html=True)
 
-    # Función para cargar el menú desde un archivo CSV
+    # Funciones para cargar el menú y procesar pedidos
     def load_menu(csv_file):
         try:
             return pd.read_csv(csv_file, delimiter=';')
@@ -98,7 +118,6 @@ elif choice == "Pedidos":
             st.error("Archivo de menú no encontrado.")
             return pd.DataFrame(columns=["Plato", "Descripción", "Precio"])
 
-    # Función para cargar los distritos de reparto desde otro CSV
     def load_districts(csv_file):
         try:
             return pd.read_csv(csv_file)
@@ -106,147 +125,73 @@ elif choice == "Pedidos":
             st.error("Archivo de distritos no encontrado.")
             return pd.DataFrame(columns=["Distrito"])
 
-    # Función para verificar el distrito con similitud
     def verify_district(prompt, districts):
         district_list = districts['Distrito'].tolist()
         best_match, similarity = process.extractOne(prompt, district_list)
         return best_match if similarity > 65 else None
 
-    # Función para guardar el pedido en un archivo CSV
     def save_order_to_csv(order_dict, district, filename="orders.csv"):
-        try:
-            orders_list = [
-                {'Fecha y Hora': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                 'Distrito': district, 'Plato': dish, 'Cantidad': quantity}
-                for dish, quantity in order_dict.items()
-            ]
-            df_orders = pd.DataFrame(orders_list)
-            df_orders.to_csv(filename, mode='a', header=False, index=False)
-        except Exception as e:
-            st.error(f"Error al guardar el pedido: {e}")
+        orders_list = [{'Fecha y Hora': datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'Distrito': district, 'Plato': dish, 'Cantidad': quantity} for dish, quantity in order_dict.items()]
+        pd.DataFrame(orders_list).to_csv(filename, mode='a', header=False, index=False)
 
-    # Función para extraer el pedido y la cantidad usando similitud
     def improved_extract_order_and_quantity(prompt, menu):
-        if not prompt:
-            return {}
-
         pattern = r"(\d+|uno|dos|tres|cuatro|cinco)?\s*([^\d,]+)"
         orders = re.findall(pattern, prompt.lower())
-
         order_dict = {}
         menu_items = menu['Plato'].tolist()
-
-        num_text_to_int = {
-            'uno': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5
-        }
+        num_text_to_int = {'uno': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5}
 
         for quantity, dish in orders:
-            dish_cleaned = dish.strip()
-            best_match, similarity = process.extractOne(dish_cleaned, menu_items, scorer=fuzz.token_set_ratio)
-
+            best_match, similarity = process.extractOne(dish.strip(), menu_items, scorer=fuzz.token_set_ratio)
             if similarity > 65:
-                if not quantity:
-                    quantity = 1
-                elif quantity.isdigit():
-                    quantity = int(quantity)
-                else:
-                    quantity = num_text_to_int.get(quantity, 1)
-
-                if best_match in order_dict:
-                    order_dict[best_match] += quantity
-                else:
-                    order_dict[best_match] = quantity
-
+                quantity = int(quantity) if quantity.isdigit() else num_text_to_int.get(quantity, 1)
+                order_dict[best_match] = order_dict.get(best_match, 0) + quantity
         return order_dict
 
-    # Función para verificar los pedidos contra el menú disponible
     def verify_order_with_menu(order_dict, menu):
-        available_orders = {}
-        unavailable_orders = []
-
-        for dish, quantity in order_dict.items():
-            if dish in menu['Plato'].values:
-                available_orders[dish] = quantity
-            else:
-                unavailable_orders.append(dish)
-
+        available_orders = {dish: quantity for dish, quantity in order_dict.items() if dish in menu['Plato'].values}
+        unavailable_orders = [dish for dish in order_dict if dish not in menu['Plato'].values]
         return available_orders, unavailable_orders
 
-    # Función para mostrar el menú en un formato amigable
-    def format_menu(menu):
-        if menu.empty:
-            return "No hay platos disponibles."
-        formatted_menu = [f"**{row['Plato']}**  \n{row['Descripción']}  \n**Precio:** S/{row['Precio']}" for idx, row in menu.iterrows()]
-        return "\n\n".join(formatted_menu)
-
-    # Cargar el menú y los distritos
+    # Cargar menú y distritos
     menu = load_menu("carta_amazonica.csv")
     districts = load_districts("distritos.csv")
 
-    # Botón para limpiar la conversación
-    if st.button("Limpiar Conversación", key="clear"):
-        init_session_state()
-
-    # Mostrar el historial de la conversación
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"], avatar="🍃" if message["role"] == "assistant" else "👤"):
-            st.markdown(message["content"])
-
-    # Entrada del usuario
+    # Procesar entradas del usuario
     user_input = st.chat_input("Escribe aquí...")
 
-    # Procesar la conversación
-    if not st.session_state["order_placed"]:
-        if user_input:
-            order_dict = improved_extract_order_and_quantity(user_input, menu)
-            if not order_dict:
-                response = "😊 ¡Selecciona un plato de la selva! Escribe la cantidad seguida del plato.\n\n"
-                response += format_menu(menu)
-            else:
-                available_orders, unavailable_orders = verify_order_with_menu(order_dict, menu)
-                if unavailable_orders:
-                    response = f"Lo siento, los siguientes platos no están disponibles: {', '.join(unavailable_orders)}."
-                else:
-                    st.session_state["order_placed"] = True
-                    st.session_state["current_order"] = available_orders
-                    response = f"<p style='color: white;'>Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores).</p>"
-    else:
-        if user_input:
-            district = verify_district(user_input, districts)
-            if not district:
-                response = f"Lo siento, pero no entregamos en ese distrito. Distritos disponibles: {', '.join(districts['Distrito'].tolist())}."
-            else:
-                st.session_state["district_selected"] = True
-                st.session_state["current_district"] = district
-                save_order_to_csv(st.session_state["current_order"], district)
-                response = f"Gracias por tu pedido desde **{district}**. ¡Tu pedido ha sido registrado con éxito! 🍽️"
+    if user_input and not st.session_state["order_placed"]:
+        order_dict = improved_extract_order_and_quantity(user_input, menu)
+        available_orders, unavailable_orders = verify_order_with_menu(order_dict, menu)
+        if unavailable_orders:
+            response = f"Platos no disponibles: {', '.join(unavailable_orders)}."
+        else:
+            st.session_state["order_placed"] = True
+            st.session_state["current_order"] = available_orders
+            response = f"Tu pedido: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas?"
 
-    # Mostrar la respuesta del asistente
+    elif user_input and st.session_state["order_placed"]:
+        district = verify_district(user_input, districts)
+        if district:
+            st.session_state["district_selected"] = True
+            st.session_state["current_district"] = district
+            save_order_to_csv(st.session_state["current_order"], district)
+            response = f"Pedido registrado desde **{district}**."
+        else:
+            response = f"Distrito no válido. Distritos disponibles: {', '.join(districts['Distrito'].tolist())}."
+
+    # Mostrar respuesta
     if user_input:
-        with st.chat_message("assistant", avatar="🍃"):
-            response_html = f"<p style='color: white;'>{response}</p>"
-            st.markdown(response_html, unsafe_allow_html=True)
-
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.markdown(f"<p style='color: white;'>{response}</p>", unsafe_allow_html=True)
 
 elif choice == "Reclamos":
-    # Manejo de reclamos
-    st.markdown("""
-        <h2 style='color: white;'>Deja tu Reclamo</h2> 
-    """, unsafe_allow_html=True)
-
     complaint = st.text_area("Escribe tu reclamo aquí...")
-
     if st.button("Enviar Reclamo"):
         if complaint:
-            response = "Tu reclamo está en proceso. Te devolveremos tu dinero en una hora al verificar la información. Si tu pedido no llegó a tiempo o fue diferente a lo que pediste, también te ofreceremos cupones por la mala experiencia de tu pedido."
-            st.success(response)
-            response_html = f"<p style='color: white;'>{response}</p>"
-            st.markdown(response_html, unsafe_allow_html=True)
+            st.success("Tu reclamo está en proceso.")
         else:
             st.error("Por favor, escribe tu reclamo antes de enviarlo.")
 
-# Agregar mensaje de despedida en la parte inferior
+# Footer
 st.markdown("---")
 st.markdown("¡Gracias por visitar La Canoa Amazónica! 🌿🍽️")
