@@ -196,7 +196,7 @@ elif choice == "Pedidos":
                 else:
                     st.session_state["order_placed"] = True
                     st.session_state["current_order"] = available_orders
-                    response = f"Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores)."
+                    response = f"<p style='color: white;'>Tu pedido ha sido registrado: {', '.join([f'{qty} x {dish}' for dish, qty in available_orders.items()])}. ¿De qué distrito nos visitas? Por favor, menciona tu distrito (por ejemplo: Miraflores).</p>"
     else:
         if user_input:
             district = verify_district(user_input, districts)
