@@ -5,12 +5,12 @@ from fuzzywuzzy import fuzz, process
 import re
 import base64
 
-@st.experimental_memo
+# Reemplazar experimental_memo con cache_data
+@st.cache_data
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
     return base64.b64encode(data).decode()
-
 
 img = get_img_as_base64("image.jpg")
 
@@ -20,7 +20,8 @@ def init_session_state():
         "order_placed": False,
         "district_selected": False,
         "current_district": None,
-        "messages": []
+        "messages": [],
+        "current_order": {}
     }
     for key, default in session_defaults.items():
         if key not in st.session_state:
