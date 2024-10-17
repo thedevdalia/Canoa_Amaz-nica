@@ -37,39 +37,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Menú en la barra lateral
+# Menú lateral
 menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
 choice = st.sidebar.selectbox("Menú", menu)
 
-# Mostrar contenido basado en la selección del menú
 if choice == "La Canoa Amazónica":
-    st.title("La Canoa Amazónica! 🛶")
-    restaurant_info = """
-    ¡Bienvenidos a La Canoa Amazónica! Si eres amante de la comida exótica de nuestra querida selva, aquí te ofrecemos una experiencia única. 
-    Disfrutarás de sabores auténticos que te harán sentir como si estuvieras en lo profundo de la selva amazónica. 
-    Además de nuestro servicio de delivery, te invitamos a visitarnos en cualquiera de nuestras cuatro sedes, donde recibirás una atención inolvidable. 
-    Nos encontramos en San Martín, San Isidro, y Chorrillos. Recuerda: tú eres parte de la selva, y la selva es parte de ti. 
-    ¡Ven a disfrutar la comida con el verdadero sabor de la Amazonía!
-    """
-    st.markdown(restaurant_info)
+    # Mensaje de bienvenida
+    welcome_message = """¡Bienvenidos a La Canoa Amazónica! 🌿🍃  
+    Si eres amante de la comida exótica de nuestra querida selva, aquí te ofrecemos una experiencia única.  
+    Disfrutarás de sabores auténticos que te harán sentir como si estuvieras en lo profundo de la selva amazónica.  
+    Además de nuestro servicio de delivery, te invitamos a visitarnos en cualquiera de nuestras cuatro sedes, donde recibirás una atención inolvidable.  
+    Nos encontramos en San Martín, San Isidro, y Chorrillos.  
+    Recuerda: tú eres parte de la selva, y la selva es parte de ti. ¡Ven a disfrutar la comida con el verdadero sabor de la Amazonía!"""
+    st.markdown(welcome_message)
 
 elif choice == "Ofertas":
-    st.title("Ofertas Especiales")
-    offers_info = """
-    ¡Promo familiar: 3 juanes a 70 soles, más una botella de 2 litros de chica morada!  
-    ¡Tacacho con cecina 2 por 30 soles! ¡Super promo!
-    """
-    st.markdown(offers_info)
+    # Mensaje de ofertas
+    offers_message = """¡Promo familiar! 3 juanes a 70 soles, más una botella de 2 litros de chicha morada.  
+    ¡Tacacho con cecina 2 por 30 soles! ¡Super promo!"""
+    st.markdown(offers_message)
 
 elif choice == "Pedidos":
-    st.title("Realiza tu Pedido")
-    intro = """Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
+    # Mostrar mensaje de bienvenida
+    intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
+    Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
     ¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
     st.markdown(intro)
-
-    # Botón para saber más sobre el restaurante
-    if st.button("Saber más sobre el restaurante"):
-        st.markdown(restaurant_info)
 
     # Función para cargar el menú desde un archivo CSV
     def load_menu(csv_file):
@@ -200,4 +193,28 @@ elif choice == "Pedidos":
                 st.session_state["district_selected"] = True
                 st.session_state["current_district"] = district
                 save_order_to_csv(st.session_state["current_order"], district)
-                response = f"Gracias por tu pedido desde
+                response = f"Gracias por tu pedido desde **{district}**. ¡Tu pedido ha sido registrado con éxito! 🍽️"
+
+    # Mostrar la respuesta del asistente
+    if user_input:
+        with st.chat_message("assistant", avatar="🍃"):
+            st.markdown(response)
+
+        st.session_state.messages.append({"role": "user", "content": user_input})
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
+elif choice == "Reclamos":
+    # Manejo de reclamos
+    st.title("Deja tu Reclamo")
+    complaint = st.text_area("Escribe tu reclamo aquí...")
+    
+    if st.button("Enviar Reclamo"):
+        if complaint:
+            response = "Tu reclamo está en proceso. Te devolveremos tu dinero en una hora al verificar la información. Si tu pedido no llegó a tiempo o fue diferente a lo que pediste, también te ofreceremos cupones por la mala experiencia de tu pedido."
+            st.success(response)
+        else:
+            st.error("Por favor, escribe tu reclamo antes de enviarlo.")
+
+# Agregar mensaje de despedida en la parte inferior
+st.markdown("---")
+st.markdown("¡Gracias por visitar La Canoa Amazónica! 🌿🍽️")
