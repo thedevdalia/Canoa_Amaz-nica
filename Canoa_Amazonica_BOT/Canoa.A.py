@@ -62,12 +62,17 @@ choice = st.sidebar.selectbox("Menú", menu)
 
 if choice == "La Canoa Amazónica":
     # Mensaje de bienvenida
-    welcome_message = """¡Bienvenidos a La Canoa Amazónica! 🌿🍃  
-    Si eres amante de la comida exótica de nuestra querida selva, aquí te ofrecemos una experiencia única.  
-    Disfrutarás de sabores auténticos que te harán sentir como si estuvieras en lo profundo de la selva amazónica.  
-    Además de nuestro servicio de delivery, te invitamos a visitarnos en cualquiera de nuestras cuatro sedes, donde recibirás una atención inolvidable.  
-    Nos encontramos en San Martín, San Isidro, y Chorrillos.  
-    Recuerda: tú eres parte de la selva, y la selva es parte de ti. ¡Ven a disfrutar la comida con el verdadero sabor de la Amazonía!"""
+    welcome_message = """# ¡Bienvenidos a La Canoa Amazónica! 🌿🍃
+
+Si eres amante de la comida exótica y auténtica de nuestra querida selva, aquí te ofrecemos una experiencia gastronómica única que no querrás perderte. En La Canoa Amazónica, vendemos una variedad de deliciosos platos de la selva, elaborados con ingredientes frescos y autóctonos que capturan la esencia de la Amazonía.
+
+Cada bocado es un viaje sensorial que te transporta a lo más profundo de la selva, donde los sabores vibrantes y las especias exóticas se fusionan para crear una explosión de gusto en tu paladar. Desde suculentas carnes, como el pez amazónico, hasta opciones vegetarianas llenas de nutrientes, tenemos algo para todos los gustos.
+
+Nuestro compromiso va más allá de ofrecer comida deliciosa; también te invitamos a disfrutar de un ambiente acogedor y familiar en cualquiera de nuestras cuatro sedes en San Martín, San Isidro y Chorrillos. Aquí, recibirás una atención personalizada que te hará sentir como en casa, porque en La Canoa Amazónica, tú eres parte de nuestra familia.
+
+Además de nuestro conveniente servicio de delivery, te garantizamos que cada visita será memorable. Te invitamos a sumergirte en la cultura y las tradiciones de la selva, donde cada plato cuenta una historia y cada sabor es un homenaje a la riqueza natural de nuestra región.
+
+Recuerda: ¡tú eres parte de la selva, y la selva es parte de ti! Ven a disfrutar de la comida con el verdadero sabor de la Amazonía, y déjate envolver por la magia de nuestros platos. ¡Te esperamos con los brazos abiertos en La Canoa Amazónica! 🌿🍽️"""
     st.markdown(welcome_message)
 
 elif choice == "Ofertas":
@@ -79,7 +84,7 @@ elif choice == "Ofertas":
 elif choice == "Pedidos":
     # Mostrar mensaje de bienvenida
     intro = """
-    <h2 style='color: white;'>¡Bienvenido a La Canoa Amazónica! 🌿🍃</h2>  
+    <h2 style='color: white;'>¡Descubre los Sabores de la Selva en La Canoa Amazónica! 🌿🍃</h2>  
     <p style='color: white;'>Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.</p>  
     <p style='color: white;'>¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!</p>
     """
