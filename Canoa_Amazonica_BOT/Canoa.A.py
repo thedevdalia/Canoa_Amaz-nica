@@ -20,11 +20,24 @@ init_session_state()
 
 # Configuración inicial de la página
 st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
-st.title("La Canoa Amazónica! 🛶")
 
-# Mostrar la imagen
-image_url = "https://raw.githubusercontent.com/thedevdalia/Canoa_Amaz-nica/main/Canoa_Amazonica_BOT/image.jpg"
-st.image(image_url, caption="Bienvenido a La Canoa Amazónica", use_column_width=True)
+# Estilo para la imagen de fondo
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-image: url('https://raw.githubusercontent.com/thedevdalia/Canoa_Amaz-nica/main/Canoa_Amazonica_BOT/image.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;  /* Cambiar el color del texto si es necesario */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("La Canoa Amazónica! 🛶")
 
 # Mostrar mensaje de bienvenida
 intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
@@ -170,3 +183,4 @@ if user_input:
 
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
+
