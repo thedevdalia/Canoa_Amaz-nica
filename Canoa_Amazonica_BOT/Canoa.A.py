@@ -21,7 +21,7 @@ init_session_state()
 # Configuración inicial de la página
 st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
 
-# Estilo para la imagen de fondo
+# Estilo para la imagen de fondo y el superpuesto oscuro
 st.markdown(
     """
     <style>
@@ -32,10 +32,23 @@ st.markdown(
         background-repeat: no-repeat;
         color: white;  /* Cambiar el color del texto si es necesario */
     }
+    
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+        z-index: 1; /* Asegura que el superpuesto esté por encima de la imagen de fondo */
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
+
+# Agregar el div del superpuesto en la parte superior
+st.markdown("<div class='overlay'></div>", unsafe_allow_html=True)
 
 # Menú lateral
 menu = ["La Canoa Amazónica", "Ofertas", "Pedidos", "Reclamos"]
