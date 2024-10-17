@@ -27,40 +27,44 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://raw.githubusercontent.com/thedevdalia/Canoa_Amaz-nica/main/Canoa_Amazonica_BOT/image.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         color: white;  /* Cambiar el color del texto si es necesario */
     }
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
-        z-index: 1; /* Asegura que el superpuesto esté por encima de la imagen de fondo */
-    }
-    .falling-coconut {
-        position: absolute;
-        top: -300px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        animation: fall 10s ease-out forwards;
+    .falling-elements {
+        position: relative;
         z-index: 100;
+        animation: fall 3s ease-out forwards;
         cursor: pointer;
     }
+    .falling-elements img {
+        position: absolute;
+        top: -500px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .falling-elements img:first-child {
+        width: 100%;  /* Fondo ocupa todo */
+        height: 100%;
+    }
+    .falling-elements img:last-child {
+        width: 200px;  /* Tamaño del coco */
+    }
     @keyframes fall {
-        0% { top: -300px; }
-        100% { top: 50%; }
+        0% { top: -500px; }
+        100% { top: 0; }
     }
     #main-content { display: none; }
+
+    /* Animación de desaparición al hacer clic */
+    .hidden {
+        display: none;
+    }
     </style>
     <script>
     function showPage() {
-        document.getElementById('coconut').style.display = 'none';
+        document.getElementById('falling-elements').classList.add('hidden');
         document.getElementById('main-content').style.display = 'block';
     }
     </script>
@@ -68,11 +72,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# URL del coco
+# URL de las imágenes
+url_background = "https://github.com/thedevdalia/Canoa_Amaz-nica/blob/main/Canoa_Amazonica_BOT/static/Fondoooooooooooooooooooo.jpg?raw=true"
 url_coconut = "https://github.com/thedevdalia/Canoa_Amaz-nica/blob/main/Canoa_Amazonica_BOT/static/coconut-isolated-transparent-background_530816-1449.jpg?raw=true"
 
-# Mostrar el coco animado
-st.markdown(f"<img src='{url_coconut}' class='falling-coconut' id='coconut' onclick='showPage()'>", unsafe_allow_html=True)
+# Mostrar el fondo y el coco animados
+st.markdown(f"""
+    <div class='falling-elements' id='falling-elements' onclick='showPage()'>
+        <img src='{url_background}'>
+        <img src='{url_coconut}'>
+    </div>
+""", unsafe_allow_html=True)
 
 # Simulación de espera antes de mostrar la página
 time.sleep(2)
