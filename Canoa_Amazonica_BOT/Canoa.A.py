@@ -1,5 +1,7 @@
+import base64
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 from datetime import datetime
 from fuzzywuzzy import fuzz, process
 import re
@@ -18,17 +20,7 @@ def init_session_state():
 
 init_session_state()
 
-# Configuración inicial de la página
-st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
-st.title("La Canoa Amazónica! 🛶")
-
-# Mostrar mensaje de bienvenida
-intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
-Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
-¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
-st.markdown(intro)
-
-# Función para cargar el menú desde un archivo CSV
+# Cargar el menú desde un archivo CSV
 def load_menu(csv_file):
     try:
         return pd.read_csv(csv_file, delimiter=';')
@@ -36,7 +28,7 @@ def load_menu(csv_file):
         st.error("Archivo de menú no encontrado.")
         return pd.DataFrame(columns=["Plato", "Descripción", "Precio"])
 
-# Función para cargar los distritos de reparto desde otro CSV
+# Cargar los distritos de reparto desde otro CSV
 def load_districts(csv_file):
     try:
         return pd.read_csv(csv_file)
@@ -44,13 +36,13 @@ def load_districts(csv_file):
         st.error("Archivo de distritos no encontrado.")
         return pd.DataFrame(columns=["Distrito"])
 
-# Función para verificar el distrito con similitud
+# Verificar el distrito con similitud
 def verify_district(prompt, districts):
     district_list = districts['Distrito'].tolist()
     best_match, similarity = process.extractOne(prompt, district_list)
     return best_match if similarity > 65 else None
 
-# Función para guardar el pedido en un archivo CSV
+# Guardar el pedido en un archivo CSV
 def save_order_to_csv(order_dict, district, filename="orders.csv"):
     try:
         orders_list = [
@@ -63,7 +55,7 @@ def save_order_to_csv(order_dict, district, filename="orders.csv"):
     except Exception as e:
         st.error(f"Error al guardar el pedido: {e}")
 
-# Función para extraer el pedido y la cantidad usando similitud
+# Extraer el pedido y la cantidad usando similitud
 def improved_extract_order_and_quantity(prompt, menu):
     if not prompt:
         return {}
@@ -97,7 +89,7 @@ def improved_extract_order_and_quantity(prompt, menu):
 
     return order_dict
 
-# Función para verificar los pedidos contra el menú disponible
+# Verificar los pedidos contra el menú disponible
 def verify_order_with_menu(order_dict, menu):
     available_orders = {}
     unavailable_orders = []
@@ -110,12 +102,22 @@ def verify_order_with_menu(order_dict, menu):
 
     return available_orders, unavailable_orders
 
-# Función para mostrar el menú en un formato amigable
+# Formatear el menú en un formato amigable
 def format_menu(menu):
     if menu.empty:
         return "No hay platos disponibles."
     formatted_menu = [f"**{row['Plato']}**  \n{row['Descripción']}  \n**Precio:** S/{row['Precio']}" for idx, row in menu.iterrows()]
     return "\n\n".join(formatted_menu)
+
+# Configuración inicial de la página
+st.set_page_config(page_title="La Canoa Amazónica!", page_icon=":canoe:")
+st.title("La Canoa Amazónica! 🛶")
+
+# Mostrar mensaje de bienvenida
+intro = """¡Bienvenido a La Canoa Amazónica! 🌿🍃  
+Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deliciosos.  
+¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
+st.markdown(intro)
 
 # Cargar el menú y los distritos
 menu = load_menu("carta_amazonica.csv")
@@ -166,3 +168,54 @@ if user_input:
 
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
+
+# --- INTEGRACIÓN DE IMAGEN Y GRÁFICOS ---
+
+# Cargar imagen de fondo
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+img = get_img_as_base64("image.jpg")  # Cambia "image.jpg" por tu imagen
+
+# Estilo de fondo
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] > .main {{
+background-image: url("https://images.unsplash.com/photo-1501426026826-31c667bdf23d");
+background-size: 180%;
+background-position: top left;
+background-repeat: no-repeat;
+background-attachment: local;
+}}
+
+[data-testid="stSidebar"] > div:first-child {{
+background-image: url("data:image/png;base64,{img}");
+background-position: center; 
+background-repeat: no-repeat;
+background-attachment: fixed;
+}}
+
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+
+[data-testid="stToolbar"] {{
+right: 2rem;
+}}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# Mostrar gráficos de Plotly
+df = px.data.iris()
+
+st.sidebar.header("Gráficos Interactivos")
+with st.container():
+    st.header("Gráfico 1")
+    st.plotly_chart(px.scatter(df, x="sepal_width", y="sepal_length", color="species"))
+
+with st.container():
+    st.header("Gráfico 2")
+    st.plotly_chart(px.scatter(df, x="petal_width", y="petal_length", color="species"))
