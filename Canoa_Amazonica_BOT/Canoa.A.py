@@ -45,6 +45,17 @@ Llegaste al rincón del sabor, donde la selva te recibe con sus platos más deli
 ¿Qué se te antoja hoy? ¡Escribe "Carta" para comenzar!"""
 st.markdown(intro)
 
+# Botón para saber más sobre el restaurante
+if st.button("Saber más sobre el restaurante"):
+    restaurant_info = """
+    **Bienvenidos al restaurante La Canoa Amazónica** 🌿🍽️  
+    Para los amantes de la comida exótica de nuestra querida selva, nosotros te brindaremos una experiencia al 100% como si estuvieras comiendo como los mansajare en lo profundo de la selva.  
+    Contamos con delivery, pero también puedes visitarnos en nuestras 4 sedes, donde te brindaremos un trato inolvidable.  
+    Nos encontramos en San Martín y San Isidro Corrillos.  
+    Recuerda, tú eres parte de la selva y la selva es parte de ti. ¡Ven a probar la comida al gusto de la selva!
+    """
+    st.markdown(restaurant_info)
+
 # Función para cargar el menú desde un archivo CSV
 def load_menu(csv_file):
     try:
@@ -183,4 +194,5 @@ if user_input:
 
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
+
 
