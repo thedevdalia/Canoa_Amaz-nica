@@ -232,9 +232,12 @@ elif choice == "Pedidos":
 
 elif choice == "Reclamos":
     # Manejo de reclamos
-    st.markdown("<h1 style='color: white;'>Deja tu Reclamo</h1>", unsafe_allow_html=True)
+    st.markdown("""
+        <h3 style='color: white; font-weight: normal;'>Deja tu Reclamo</h3>
+    """, unsafe_allow_html=True)
+
     complaint = st.text_area("Escribe tu reclamo aquí...")
-    
+
     if st.button("Enviar Reclamo"):
         if complaint:
             response = "Tu reclamo está en proceso. Te devolveremos tu dinero en una hora al verificar la información. Si tu pedido no llegó a tiempo o fue diferente a lo que pediste, también te ofreceremos cupones por la mala experiencia de tu pedido."
